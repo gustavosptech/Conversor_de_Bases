@@ -1,7 +1,7 @@
 body, html {
     height: 100%;
     margin: 0;
-    font-family: 'Roboto', sans-serif; /* Fonte mais moderna */
+    font-family: 'Roboto', sans-serif;
 }
 
 .background {
@@ -14,7 +14,7 @@ body, html {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1; /* Certifique-se de que o fundo fique atrás do conteúdo */
+    z-index: -1;
     filter: blur(1px);
     transform: scale(1.1);
 }
