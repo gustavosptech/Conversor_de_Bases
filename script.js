@@ -20,7 +20,9 @@ function converterOctalParaDecimal() {
     var octal = Number(document.getElementById("input_valorOctal").value);
     var decimal = octal.toString(10);
 
-    if (octal == 8) {
+    // /^[8]+$/.test(octal) testa para ver se no input contém o número 8
+
+    if (/^[8]+$/.test(octal)) {
         document.getElementById("demo2").innerHTML = `ERRO. Octal não contêm o número 8`
     } else {
         document.getElementById("demo2").innerHTML = ` ${decimal}`
@@ -31,7 +33,7 @@ function converterOctalParaHexadecimal() {
     var octal = Number(document.getElementById("input_valorOctal").value);
     var hexa = octal.toString(16).toLocaleUpperCase();
 
-    if (octal == 8) {
+    if (/^[8]+$/.test(octal)) {
         document.getElementById("demo3").innerHTML = `ERRO. Octal não contêm o número 8`
     } else {
         document.getElementById("demo3").innerHTML = ` ${hexa}`
@@ -42,7 +44,7 @@ function converterOctalParaBin() {
     var octal = Number(document.getElementById("input_valorOctal").value);
     var bin = octal.toString(2);
 
-    if (octal == 8) {
+    if (/^[8]+$/.test(octal)) {
         document.getElementById("demo4").innerHTML = `ERRO. Octal não contêm o número 8`
     } else {
         document.getElementById("demo4").innerHTML = ` ${bin}`
@@ -51,7 +53,7 @@ function converterOctalParaBin() {
 
 function converterHexaParaDecimal() {
     var hexa = document.getElementById("input_valorHexa").value;
-    var decimal = parseInt(hexa, 16); // Converte hexadecimal para decimal
+    var decimal = parseInt(hexa, 16); // Converte hexadecimal para decimal, parseInt permite números inteiros 1 até 9 e texto A até F
 
     if (isNaN(decimal)) {
         document.getElementById("demo2").innerHTML = `ERRO. Digite um valor hexadecimal válido.`;
@@ -86,6 +88,8 @@ function converterHexaParaBin() {
 function converterBinarioParaDecimal() {
     var bin = document.getElementById("input_valorBinario").value;
     var decimal = parseInt(bin, 2);
+
+    // /^[01]+$/.test(bin) -- testa se no input contém os núemeros 0 e 1
 
     if (/^[01]+$/.test(bin)) {
         document.getElementById("demo2").innerHTML = `${decimal}`;
