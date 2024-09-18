@@ -6,21 +6,21 @@ function converterDecimalParaOctal() {
 
 function converterDecimalParaHexa() {
     var decimal = Number(document.getElementById("input_valorDecimal").value);
-    var hexadecimal = decimal.toString(16);
-    document.getElementById("demo3").innerHTML = ` ${hexadecimal}`;
+    var hexa = decimal.toString(16).toUpperCase();
+    document.getElementById("demo3").innerHTML = ` ${hexa}`;
 }
 
 function converterDecimalParaBin() {
     var decimal = Number(document.getElementById("input_valorDecimal").value);
     var binaria = decimal.toString(2);
-    document.getElementById("demo4").innerHTML = ` ${binaria}`; 
+    document.getElementById("demo4").innerHTML = ` ${binaria}`;
 }
 
 function converterOctalParaDecimal() {
     var octal = Number(document.getElementById("input_valorOctal").value);
     var decimal = octal.toString(10);
 
-    if (octal == 8){
+    if (octal == 8) {
         document.getElementById("demo2").innerHTML = `ERRO. Octal não contêm o número 8`
     } else {
         document.getElementById("demo2").innerHTML = ` ${decimal}`
@@ -29,20 +29,20 @@ function converterOctalParaDecimal() {
 
 function converterOctalParaHexadecimal() {
     var octal = Number(document.getElementById("input_valorOctal").value);
-    var hexadecimal = octal.toString(16);
-    
-    if (octal == 8){
+    var hexa = octal.toString(16).toLocaleUpperCase();
+
+    if (octal == 8) {
         document.getElementById("demo3").innerHTML = `ERRO. Octal não contêm o número 8`
     } else {
-        document.getElementById("demo3").innerHTML = ` ${hexadecimal}`
+        document.getElementById("demo3").innerHTML = ` ${hexa}`
     }
 }
 
-function converterOctalParaBin(){
+function converterOctalParaBin() {
     var octal = Number(document.getElementById("input_valorOctal").value);
     var bin = octal.toString(2);
-    
-    if (octal == 8){
+
+    if (octal == 8) {
         document.getElementById("demo4").innerHTML = `ERRO. Octal não contêm o número 8`
     } else {
         document.getElementById("demo4").innerHTML = ` ${bin}`
@@ -74,13 +74,48 @@ function converterHexaParaOctal() {
 
 function converterHexaParaBin() {
     var hexa = document.getElementById("input_valorHexa").value;
-    var decimal = parseInt(hexa, 16); // Converte hexadecimal para decimal
-    var bin = decimal.toString(2); // Converte decimal para binário
+    var decimal = parseInt(hexa, 16);
 
     if (isNaN(decimal)) {
         document.getElementById("demo4").innerHTML = `ERRO. Digite um valor hexadecimal válido.`;
     } else {
         document.getElementById("demo4").innerHTML = `${bin}`;
+    }
+}
+
+function converterBinarioParaDecimal() {
+    var bin = document.getElementById("input_valorBinario").value;
+    var decimal = parseInt(bin, 2);
+
+    if (/^[01]+$/.test(bin)) {
+        document.getElementById("demo2").innerHTML = `${decimal}`;
+    } else {
+        document.getElementById("demo2").innerHTML = `ERRO. Digite um valor binário válido.`;
+    }
+}
+
+
+function converterBinarioParaOctal() {
+    var bin = document.getElementById("input_valorBinario").value;
+    var decimal = parseInt(bin, 2);
+    var octal = decimal.toString(8);
+
+    if (/^[01]+$/.test(bin)) {
+        document.getElementById("demo3").innerHTML = `${octal}`;
+    } else {
+        document.getElementById("demo3").innerHTML = `ERRO. Digite um valor binário válido.`;
+    }
+}
+
+function converterBinarioParaHexa() {
+    var bin = document.getElementById("input_valorBinario").value;
+    var decimal = parseInt(bin, 2);
+    var hexa = decimal.toString(16).toLocaleUpperCase();
+
+    if (/^[01]+$/.test(bin)) {
+        document.getElementById("demo4").innerHTML = `${hexa}`;
+    } else {
+        document.getElementById("demo4").innerHTML = `ERRO. Digite um valor binário válido.`;
     }
 }
 
