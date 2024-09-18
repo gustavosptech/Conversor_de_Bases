@@ -77,6 +77,7 @@ function converterHexaParaOctal() {
 function converterHexaParaBin() {
     var hexa = document.getElementById("input_valorHexa").value;
     var decimal = parseInt(hexa, 16);
+    var bin = decimal.toString(2);
 
     if (isNaN(decimal)) {
         document.getElementById("demo4").innerHTML = `ERRO. Digite um valor hexadecimal válido.`;
