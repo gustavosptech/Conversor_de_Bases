@@ -18,23 +18,24 @@ function converterDecimalParaBin() {
 
 function converterOctalParaDecimal() {
     var octal = Number(document.getElementById("input_valorOctal").value)
-    var decimal = octal.toString(10)
+    var decimal = parseInt(octal,8);
 
     // /^[8]+$/.test(octal) testa para ver se no input contém o número 8
 
-    if (/^[8]+$/.test(octal)) {
-        document.getElementById("demo2").innerHTML = `ERRO. Octal não contêm o número 8`
-    } else {
+    if (/^[01234567]+$/.test(octal)) {
         document.getElementById("demo2").innerHTML = decimal
+    } else {
+         document.getElementById("demo2").innerHTML = `ERRO. Octal não contêm o número 8 ou 9`
     }
 }
 
 function converterOctalParaHexadecimal() {
     var octal = Number(document.getElementById("input_valorOctal").value)
-    var hexa = octal.toString(16).toLocaleUpperCase()
+    var decimal = parseInt(octal,8);
+    var hexa = decimal.toString(16).toLocaleUpperCase();
 
-    if (/^[8]+$/.test(octal)) {
-        document.getElementById("demo3").innerHTML = `ERRO. Octal não contêm o número 8`
+    if (/^[8-9]+$/.test(octal)) {
+        document.getElementById("demo3").innerHTML = `ERRO. Octal não contêm o número 8 ou 9`
     } else {
         document.getElementById("demo3").innerHTML = hexa
     }
@@ -42,10 +43,11 @@ function converterOctalParaHexadecimal() {
 
 function converterOctalParaBin() {
     var octal = Number(document.getElementById("input_valorOctal").value)
-    var bin = octal.toString(2)
+    var decimal = parseInt(octal,8);
+    var bin = decimal.toString(2);
 
-    if (/^[8]+$/.test(octal)) {
-        document.getElementById("demo4").innerHTML = `ERRO. Octal não contêm o número 8`
+    if (/^[8-9]+$/.test(octal)) {
+        document.getElementById("demo4").innerHTML = `ERRO. Octal não contêm o número 8 ou 9`
     } else {
         document.getElementById("demo4").innerHTML = bin
     }
