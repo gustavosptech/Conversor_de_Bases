@@ -19,6 +19,9 @@ Ele foi realizado como uma atividade para a faculdade São Paulo Tech School.
 - CSS
 - JavaScript
 
+## Página Inicial
+<img src="código_base\print_pagina_inicial.png">
+
 ## Como Usar
 
 1. Acesse a aplicação através do link: [Conversor de Bases](https://gustavosptech.github.io/Conversor_de_Bases/Conversor.html).
