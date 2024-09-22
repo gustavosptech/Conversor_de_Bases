@@ -118,3 +118,55 @@ h2 {
     margin-top: 20px;
     font-size: 2em;
 }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container1 {
+        width: 100%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .input_valor {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .navegar a, button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container1 {
+        width: 95%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .navegar a, button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .container3 {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .input_valor {
+        font-size: 12px;
+    }
+}
