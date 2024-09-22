@@ -22,7 +22,8 @@ html {
 
 .container1 {
     background-color: rgba(36, 36, 38, 0.9);
-    width: 800px;
+    max-width: 800px;
+    width: 90%;
     padding: 30px;
     margin: 50px auto;
     border-radius: 20px;
@@ -98,7 +99,7 @@ h1 {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.input_valor:placeholder {
+.input_valor::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 

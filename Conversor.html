@@ -26,26 +26,23 @@
 
             <div id="decimal" class="hidden visible">
                 <h2>Decimal</h2>
-                <input class="input_valor" id="input_valorDecimal" type="number"
+                <input onkeyup="converterDecimal()" class="input_valor" id="input_valorDecimal" type="number"
                     placeholder="Digite o valor em decimal">
                 <br>
+                <div class="container3" id="resultado_erro_decimal"></div>
                 <div class="container3">
-
-                    <button onclick="converterDecimalParaOctal()">Converter</button>
-                    <h3>para Octal:</h3>
+                    <h3>Octal:</h3>
                     <div class="apagar" id="decimal_octal"></div>
                 </div>
 
 
                 <div class="container3">
-                    <button onclick="converterDecimalParaHexa()">Converter</button>
-                    <h3>para Hexadecimal:</h3>
+                    <h3>Hexadecimal:</h3>
                     <div class="apagar" id="decimal_hexadecimal"></div>
                 </div>
 
                 <div class="container3">
-                    <button onclick="converterDecimalParaBin()">Converter</button>
-                    <h3>para Binário:</h3>
+                    <h3>Binário:</h3>
                     <div class="apagar" id="decimal_binario"></div>
 
                 </div>
@@ -53,76 +50,70 @@
 
             <div id="binario" class="hidden">
                 <h2>Binário</h2>
-                <input class="input_valor" id="input_valorBinario" type="number"
+                <input onkeyup="converterBinario()" class="input_valor" id="input_valorBinario" type="number"
                     placeholder="Digite o valor em binário">
                 <br>
-                <div class="container3">
 
-                    <button onclick="converterBinarioParaDecimal()">Converter</button>
-                    <h3>para Decimal:</h3>
+                <div class="container3" id="resultado_erro_binario"></div>
+
+                <div class="container3">
+                    <h3>Decimal:</h3>
                     <div class="apagar" id="binario_decimal"></div>
                 </div>
 
-
                 <div class="container3">
-                    <button onclick="converterBinarioParaOctal()">Converter</button>
-                    <h3>para Octal:</h3>
+                    <h3>Octal:</h3>
                     <div class="apagar" id="binario_octal"></div>
                 </div>
 
                 <div class="container3">
-                    <button onclick="converterBinarioParaHexa()">Converter</button>
-                    <h3>para Hexadecimal:</h3>
+                    <h3>Hexadecimal:</h3>
                     <div class="apagar" id="binario_hexadecimal"></div>
 
                 </div>
             </div>
+
             <div id="octal" class="hidden">
                 <h2>Octal</h2>
-                <input class="input_valor" id="input_valorOctal" type="number" placeholder="Digite o valor em octal">
+                <input onkeyup="converterOctal()" class="input_valor" id="input_valorOctal" type="number"
+                    placeholder="Digite o valor em octal">
                 <br>
+                <div class="container3" id="resultado_erro_octal"></div>
                 <div class="container3">
-
-                    <button onclick="converterOctalParaDecimal()">Converter</button>
-                    <h3>para Decimal:</h3>
+                    <h3>Decimal:</h3>
                     <div class="apagar" id="octal_decimal"></div>
                 </div>
 
 
                 <div class="container3">
-                    <button onclick="converterOctalParaHexadecimal()">Converter</button>
-                    <h3>para Hexadecimal:</h3>
+                    <h3>Hexadecimal:</h3>
                     <div class="apagar" id="octal_hexadecimal"></div>
                 </div>
 
                 <div class="container3">
-                    <button onclick="converterOctalParaBin()">Converter</button>
-                    <h3>para Binário:</h3>
+                    <h3>Binário:</h3>
                     <div class="apagar" id="octal_binario"></div>
 
                 </div>
             </div>
             <div id="hexadecimal" class="hidden">
                 <h2>Hexadecimal</h2>
-                <input class="input_valor" id="input_valorHexa" type="text" placeholder="Digite o valor em octal">
+                <input onkeyup="converterHexadecimal()" class="input_valor" id="input_valorHexadecimal" type="text"
+                    placeholder="Digite o valor em Hexadecimal">
                 <br>
+                <div class="container3" id="resultado_erro_hexadecimal"></div>
                 <div class="container3">
-
-                    <button onclick="converterHexaParaDecimal()">Converter</button>
-                    <h3>para Decimal:</h3>
+                    <h3>Decimal:</h3>
                     <div class="apagar" id="hexadecimal_decimal"></div>
                 </div>
 
-
                 <div class="container3">
-                    <button onclick="converterHexaParaOctal()">Converter</button>
-                    <h3>para Octal:</h3>
+                    <h3>Octal:</h3>
                     <div class="apagar" id="hexadecimal_octal"></div>
                 </div>
 
                 <div class="container3">
-                    <button onclick="converterHexaParaBin()">Converter</button>
-                    <h3>para Binário:</h3>
+                    <h3>Binário:</h3>
                     <div class="apagar" id="hexadecimal_binario"></div>
 
                 </div>
