@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Conversor De Bases</title>
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="container1">
+        <h1>Conversor de Bases</h1>
+
+        <div class="navegar">
+            <button id="btn_decimal">Decimal</button>
+            <button id="btn_binario">Binário</button>
+            <button id="btn_octal">Octal</button>
+            <button id="btn_hexadecimal">Hexadecimal</button>
+            <button id="btn_ascii">ASCII</button>
+        </div>
+        
+        <div class="container2">
+            <input class="input_valor" type="text" id="input-value" placeholder="Digite um valor" oninput="convertAndDisplay()">
+        
+            <div class="buttons-container">
+                <button data-op="add" onclick="performOperation(event)">+</button>
+                <button data-op="subtract" onclick="performOperation(event)">-</button>
+                <button data-op="multiply" onclick="performOperation(event)">*</button>
+                <button data-op="divide" onclick="performOperation(event)">/</button>
+                <button onclick="performResult()">=</button>
+                <button onclick="clearAll()">Limpar</button>
+            </div>
+        
+            <div class="result-container">
+                <p>Decimal: <span id="dec-value">0</span></p>
+                <p>Binário: <span id="bin-value">0</span></p>
+                <p>Octal: <span id="oct-value">0</span></p>
+                <p>Hexadecimal: <span id="hex-value">0</span></p>
+            </div>
+        </div>
+        
+        <div id="ascii-converter" class="hidden">
+            <input class="input_valor" type="text" id="input-ascii" placeholder="Digite um caractere" maxlength="1" oninput="converterCaracter()">
+            <div id="ascii-output"></div>
+        </div>
+        
+
+    <script src="script.js"></script>
+</body>
+
+</html>

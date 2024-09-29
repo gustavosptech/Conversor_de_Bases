@@ -1,162 +1,119 @@
-function converterDecimal() {
-    const valorDecimal = document.getElementById("input_valorDecimal").value;
+let selectedBase = 'dec';
+let currentValue = 0;
+let lastValue = 0;
+let pendingOperation = '';
 
-    if (valorDecimal === '') {
-        // Limpa os resultados se o campo estiver vazio
-        document.getElementById("decimal_binario").textContent = '';
-        document.getElementById("decimal_octal").textContent = '';
-        document.getElementById("decimal_hexadecimal").textContent = '';
-        document.getElementById("resultado_erro_decimal").textContent = '';
+function convertAndDisplay() {
+    const inputValue = document.getElementById('input-value').value.trim();
+
+    // Verifica se o valor é válido
+    if (!inputValue) {
+        clearDisplay();
         return;
     }
 
-
-    if (/^[0-9]+$/.test(valorDecimal)) {
-        const decimal = parseInt(valorDecimal);
-    
-        const binario = decimal.toString(2);
-        document.getElementById("decimal_binario").textContent = binario;
-
-        const octal = decimal.toString(8);
-        document.getElementById("decimal_octal").textContent = octal;
-
-        const hexadecimal = decimal.toString(16).toUpperCase();
-        document.getElementById("decimal_hexadecimal").textContent = hexadecimal;
-
-        document.getElementById("resultado_erro_decimal").textContent = '';
-        
+    if (selectedBase === 'dec') {
+        currentValue = Number(inputValue);
+    } else if (selectedBase === 'bin') {
+        currentValue = parseInt(inputValue, 2);
+    } else if (selectedBase === 'oct') {
+        currentValue = parseInt(inputValue, 8);
+    } else if (selectedBase === 'hex') {
+        currentValue = parseInt(inputValue, 16);
     } else {
-        document.getElementById("resultado_erro_decimal").textContent = 'ERRO!! Digite apenas números!';
-        document.getElementById("decimal_binario").textContent = '';
-        document.getElementById("decimal_octal").textContent = '';
-        document.getElementById("decimal_hexadecimal").textContent = '';
-    }
-    
-}
-
-
-function converterOctal() {
-    const valorOctal = document.getElementById("input_valorOctal").value;
-
-
-    if (valorOctal === '') {
-        document.getElementById("octal_decimal").textContent = '';
-        document.getElementById("octal_binario").textContent = '';
-        document.getElementById("octal_hexadecimal").textContent = '';
-        document.getElementById("resultado_erro_octal").textContent = '';
+        alert('Base inválida');
         return;
     }
 
-    if (/^[0-7]+$/.test(valorOctal)) {
-
-        const decimal = parseInt(valorOctal, 8);
-        document.getElementById("octal_decimal").textContent = decimal;
-
-
-        const binario = decimal.toString(2);
-        document.getElementById("octal_binario").textContent = binario;
-
-
-        const hexadecimal = decimal.toString(16).toUpperCase();
-        document.getElementById("octal_hexadecimal").textContent = hexadecimal;
-
-
-        document.getElementById("resultado_erro_octal").textContent = '';
-    } else {
-        document.getElementById("resultado_erro_octal").textContent = `ERRO!! Octal não contêm o número 8 ou 9!`;
-        document.getElementById("octal_decimal").textContent = '';
-        document.getElementById("octal_binario").textContent = '';
-        document.getElementById("octal_hexadecimal").textContent = '';
-    }
-}
-
-function converterHexadecimal() {
-    const valorHexadecimal = document.getElementById("input_valorHexadecimal").value;
-
-
-    if (valorHexadecimal === '') {
-        document.getElementById("hexadecimal_decimal").textContent = '';
-        document.getElementById("hexadecimal_binario").textContent = '';
-        document.getElementById("hexadecimal_octal").textContent = '';
-        document.getElementById("resultado_erro_hexadecimal").textContent = '';
+    if (isNaN(currentValue)) {
+        alert('Insira um valor válido na base selecionada.');
+        clearDisplay();
         return;
     }
 
-    // /^[0-9A-Fa-f]+$/.test(hexa) -- testa se o input possui número de 1 a 9 e é case sensitive de A até F
-
-    if (/^[0-9A-Fa-f]+$/.test(valorHexadecimal)) {
-
-        const decimal = parseInt(valorHexadecimal, 16);
-        document.getElementById("hexadecimal_decimal").textContent = decimal;
-
-
-        const binario = decimal.toString(2);
-        document.getElementById("hexadecimal_binario").textContent = binario;
-
-
-        const octal = decimal.toString(8);
-        document.getElementById("hexadecimal_octal").textContent = octal;
-
-        document.getElementById("resultado_erro_hexadecimal").textContent = '';
-
-    } else {
-        document.getElementById("resultado_erro_hexadecimal").textContent = `ERRO!! Hexadecimal são números de 1 até 9 e A até F!`;
-        document.getElementById("hexadecimal_decimal").textContent = '';
-        document.getElementById("hexadecimal_binario").textContent = '';
-        document.getElementById("hexadecimal_octal").textContent = '';
-    }
+    updateDisplay(currentValue);
 }
 
-function converterBinario() {
-    const valorBinario = document.getElementById("input_valorBinario").value;
 
+function performOperation(event) {
+    const operation = event.target.getAttribute("data-op");
 
-    if (valorBinario === '') {
-        document.getElementById("binario_decimal").textContent = '';
-        document.getElementById("binario_hexadecimal").textContent = '';
-        document.getElementById("binario_octal").textContent = '';
-        document.getElementById("resultado_erro_binario").textContent = '';
+    if (pendingOperation !== '') {
+        performResult();
+    }
+
+    lastValue = currentValue;
+    pendingOperation = operation;
+    document.getElementById('input-value').value = '';
+}
+
+function performResult() {
+    if (!pendingOperation || (lastValue === 0 && currentValue === 0)) {
+        alert('Nenhuma operação para realizar.');
         return;
     }
 
-    // /^[01]+$/.test(bin) -- testa se no input contém os núemeros 0 e 1
+    let result;
 
-    if (/^[0-1]+$/.test(valorBinario)) {
-
-        const decimal = parseInt(valorBinario, 2);
-        document.getElementById("binario_decimal").textContent = decimal;
-
-
-        const hexadecimal = decimal.toString(16).toUpperCase();
-        document.getElementById("binario_hexadecimal").textContent = hexadecimal;
-
-
-        const octal = decimal.toString(8).toUpperCase();
-        document.getElementById("binario_octal").textContent = octal;
-
-        document.getElementById("resultado_erro_binario").textContent = '';
-
+    if (pendingOperation === "add") {
+        result = lastValue + currentValue;
+    } else if (pendingOperation === "subtract") {
+        result = lastValue - currentValue;
+    } else if (pendingOperation === "multiply") {
+        result = lastValue * currentValue;
+    } else if (pendingOperation === "divide") {
+        if (currentValue === 0) {
+            alert('Divisão por zero não é permitida!');
+            return;
+        }
+        result = lastValue / currentValue;
     } else {
-        document.getElementById("resultado_erro_binario").textContent = `ERRO!! binario são números de 0 até 1!`;
-        document.getElementById("binario_decimal").textContent = '';
-        document.getElementById("binario_hexadecimal").textContent = '';
-        document.getElementById("binario_octal").textContent = '';
+        return;
     }
+
+    lastValue = result;
+    currentValue = result;
+    pendingOperation = '';
+    updateDisplay(result);
 }
 
-// Botão de mudança de bases:
 
-const btnDecimal = document.getElementById("btn_decimal");
-const btnBinario = document.getElementById("btn_binario");
-const btnOctal = document.getElementById("btn_octal");
-const btnHexadecimal = document.getElementById("btn_hexadecimal");
-const idDecimal = document.getElementById("decimal");
-const idBinario = document.getElementById("binario");
-const idOctal = document.getElementById("octal");
-const idHexadecimal = document.getElementById("hexadecimal");
+function updateDisplay(value) {
+    document.getElementById('dec-value').innerText = value.toString(10);
+    document.getElementById('bin-value').innerText = Math.floor(value).toString(2);
+    document.getElementById('oct-value').innerText = Math.floor(value).toString(8);
+    document.getElementById('hex-value').innerText = Math.floor(value).toString(16).toUpperCase();
+}
 
+function clearAll() {
+    document.getElementById('input-value').value = '';
+    clearDisplay();
+    currentValue = 0;
+    lastValue = 0;
+    pendingOperation = '';
+}
 
-btnDecimal.addEventListener('click', () => {
+function clearDisplay() {
+    document.getElementById('hex-value').innerText = '0';
+    document.getElementById('dec-value').innerText = '0';
+    document.getElementById('oct-value').innerText = '0';
+    document.getElementById('bin-value').innerText = '0';
+}
+
+// Event Listeners para os botões de bases
+document.getElementById("btn_decimal").addEventListener('click', () => setBase('dec'));
+document.getElementById("btn_binario").addEventListener('click', () => setBase('bin'));
+document.getElementById("btn_octal").addEventListener('click', () => setBase('oct'));
+document.getElementById("btn_hexadecimal").addEventListener('click', () => setBase('hex'));
+
+function setBase(base) {
+    selectedBase = base;
+    clearAll();
+}
+
+const btnAscii = document.getElementById("btn_ascii");
+
+btnAscii.addEventListener('click', () => {
     idDecimal.classList.add("visible");
     idBinario.classList.remove("visible");
     idOctal.classList.remove("visible");
@@ -164,26 +121,101 @@ btnDecimal.addEventListener('click', () => {
     apagarConteudoDaDiv()
 });
 
-btnBinario.addEventListener('click', () => {
-    idDecimal.classList.remove("visible");
-    idBinario.classList.add("visible");
-    idOctal.classList.remove("visible");
-    idHexadecimal.classList.remove("visible");
-    apagarConteudoDaDiv()
+// Seletor para os containers da calculadora e do conversor ASCII
+const container2 = document.querySelector('.container2');
+const asciiConverter = document.getElementById('ascii-converter');
+const divOutput = document.getElementById('ascii-output');
+const inputAscii = document.getElementById('input-ascii');
+
+// Função para esconder a calculadora e mostrar o conversor ASCII
+document.getElementById("btn_ascii").addEventListener('click', () => {
+    container2.classList.add('hidden'); // Oculta a calculadora
+    asciiConverter.classList.remove('hidden'); // Mostra o conversor ASCII
 });
 
-btnOctal.addEventListener('click', () => {
-    idDecimal.classList.remove("visible");
-    idBinario.classList.remove("visible");
-    idOctal.classList.add("visible");
-    idHexadecimal.classList.remove("visible");
-    apagarConteudoDaDiv()
+// Função para converter o caractere ASCII
+function converterCaracter() {
+    const caractere = inputAscii.value;
+
+    // Limpa o output anterior
+    divOutput.innerHTML = '';
+
+    // Se o input não tiver caractere, não faz nada
+    if (!caractere) {
+        return;
+    }
+
+    const decimal = caractere.charCodeAt(0); // Obtém o código decimal do caractere
+
+    // Exibe os valores em decimal, binário e hexadecimal
+    divOutput.style.display = 'block';
+    divOutput.innerHTML += `<b>Decimal:</b> ${decimal}<br>`;
+    divOutput.innerHTML += `<b>Binário:</b> ${decimal.toString(2)}<br>`;
+    divOutput.innerHTML += `<b>Hexadecimal:</b> ${decimal.toString(16).toUpperCase()}<br>`;
+}
+
+// Função para voltar ao modo da calculadora ao selecionar uma base
+function setBase(base) {
+    selectedBase = base;
+    clearAll();
+
+    // Remove a classe 'selected' de todos os botões de base
+    document.getElementById("btn_decimal").classList.remove('selected');
+    document.getElementById("btn_binario").classList.remove('selected');
+    document.getElementById("btn_octal").classList.remove('selected');
+    document.getElementById("btn_hexadecimal").classList.remove('selected');
+    document.getElementById("btn_ascii").classList.remove('selected');
+
+    if (base === 'dec') {
+        document.getElementById("btn_decimal").classList.add('selected');
+    } else if (base === 'bin') {
+        document.getElementById("btn_binario").classList.add('selected');
+    } else if (base === 'oct') {
+        document.getElementById("btn_octal").classList.add('selected');
+    } else if (base === 'hex') {
+        document.getElementById("btn_hexadecimal").classList.add('selected');
+    } else if (base === 'ascii') {
+        document.getElementById("btn_ascii").classList.add('selected');
+    }
+
+    // Volta a mostrar a calculadora ao selecionar uma base (exceto para ASCII)
+    if (base !== 'ascii') {
+        container2.classList.remove('hidden'); // Mostra a calculadora novamente
+        asciiConverter.classList.add('hidden'); // Oculta o conversor ASCII
+    }
+}
+
+
+// Atualiza o comportamento dos botões de base para reexibir a calculadora
+document.getElementById("btn_decimal").addEventListener('click', () => setBase('dec'));
+document.getElementById("btn_binario").addEventListener('click', () => setBase('bin'));
+document.getElementById("btn_octal").addEventListener('click', () => setBase('oct'));
+document.getElementById("btn_hexadecimal").addEventListener('click', () => setBase('hex'));
+
+// Atualiza o evento do botão ASCII para incluir a classe 'selected'
+document.getElementById("btn_ascii").addEventListener('click', () => {
+    container2.classList.add('hidden'); // Oculta a calculadora
+    asciiConverter.classList.remove('hidden'); // Mostra o conversor ASCII
+    setBase('ascii'); // Define o ASCII como a base selecionada
 });
 
-btnHexadecimal.addEventListener('click', () => {
-    idDecimal.classList.remove("visible");
-    idBinario.classList.remove("visible");
-    idOctal.classList.remove("visible");
-    idHexadecimal.classList.add("visible");
-    apagarConteudoDaDiv()
-});
+// Função para converter o caractere ASCII
+function converterCaracter() {
+    const caractere = inputAscii.value;
+
+    // Limpa o output anterior
+    divOutput.innerHTML = '';
+
+    // Se o input não tiver caractere, não faz nada
+    if (!caractere) {
+        return;
+    }
+
+    const decimal = caractere.charCodeAt(0); // Obtém o código decimal do caractere
+
+    // Exibe os valores em decimal, binário e hexadecimal
+    divOutput.style.display = 'block';
+    divOutput.innerHTML += `<b>Decimal:</b> ${decimal}<br>`;
+    divOutput.innerHTML += `<b>Binário:</b> ${decimal.toString(2)}<br>`;
+    divOutput.innerHTML += `<b>Hexadecimal:</b> ${decimal.toString(16).toUpperCase()}<br>`;
+}
